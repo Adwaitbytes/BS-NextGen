@@ -16,6 +16,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
 import { Visibility, VisibilityOff, Email as EmailIcon, Lock as LockIcon } from '@mui/icons-material';
 
+// Main Login component for user authentication
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useAppContext();
@@ -136,7 +137,7 @@ const Login = () => {
       >
         <Box sx={{ mb: 3, textAlign: 'center' }}>
           <img
-            src="/iitm-logo.png"
+            src={process.env.PUBLIC_URL + '/iitm-logo.png'}
             alt="IITM Logo"
             style={{
               width: 80,
