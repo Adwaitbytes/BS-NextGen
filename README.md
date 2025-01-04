@@ -2,6 +2,8 @@
 
 A modern web application for IITM BS Program students to manage their academic life effectively.
 
+🌐 **Live Website**: [BS Next Gen App](https://bs-nextgen.onrender.com)
+
 ## Features
 
 - 📚 Class Schedule Management
