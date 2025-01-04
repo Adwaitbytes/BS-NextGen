@@ -2,7 +2,7 @@
 
 A modern web application for IITM BS Program students to manage their academic life effectively.
 
-🌐 **Live Website**: [BS Next Gen App](https://bs-nextgen.onrender.com)
+🌐 **Live Website**: [BS Next Gen App](https://adwaitbytes.github.io/BS-NextGen/)
 
 ## Features
 
