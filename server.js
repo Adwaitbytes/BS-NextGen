@@ -7,14 +7,20 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? 'https://adwaitbytes.github.io' 
+    : 'http://localhost:3000',
+  credentials: true
+}));
 app.use(express.json());
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/virtuconnect', {
   useNewUrlParser: true,
   useUnifiedTopology: true
-});
+}).then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log('MongoDB Connection Error:', err));
 
 // Routes
 app.use('/api/users', require('./routes/users'));

@@ -13,11 +13,17 @@ A modern web application for IITM BS Program students to manage their academic l
 
 ## Tech Stack
 
+### Frontend
 - React 18
 - Material-UI (MUI)
 - React Router
 - Context API for State Management
-- Vite for Build Tool
+
+### Backend
+- Node.js
+- Express
+- MongoDB
+- JWT Authentication
 
 ## Getting Started
 
@@ -29,24 +35,58 @@ cd BS-NextGen
 
 2. Install dependencies:
 ```bash
+# Install backend dependencies
+npm install
+
+# Install frontend dependencies
 cd client
 npm install
 ```
 
-3. Run the development server:
-```bash
-npm run dev
+3. Set up environment variables:
+Create a .env file in the root directory with:
+```
+MONGODB_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
+PORT=5000
 ```
 
-4. Build for production:
+4. Run the development server:
 ```bash
-npm run build
+# Run both frontend and backend
+npm run dev
+
+# Run only backend
+npm run server
+
+# Run only frontend
+npm run client
 ```
 
 ## Deployment
 
-The app is automatically deployed to GitHub Pages when changes are pushed to the main branch.
-Visit [https://adwaitbytes.github.io/BS-NextGen/](https://adwaitbytes.github.io/BS-NextGen/) to see the live site.
+The application is deployed in two parts:
+
+### Frontend
+- Hosted on GitHub Pages
+- Live at: [https://adwaitbytes.github.io/BS-NextGen/](https://adwaitbytes.github.io/BS-NextGen/)
+- Automatically deploys when changes are pushed to main branch
+
+### Backend
+- Hosted on Render.com
+- API Endpoint: [https://bs-nextgen-backend.onrender.com](https://bs-nextgen-backend.onrender.com)
+- Automatically deploys when changes are pushed to main branch
+
+### Deployment Instructions
+
+1. Frontend (GitHub Pages):
+```bash
+npm run deploy
+```
+
+2. Backend (Render):
+- Push changes to main branch
+- Render will automatically deploy from the main branch
 
 ## Contributing
 
