@@ -10,6 +10,8 @@ import {
   IconButton,
   InputAdornment,
   Alert,
+  Grid,
+  CircularProgress,
 } from '@mui/material';
 import { Google as GoogleIcon, LinkedIn as LinkedInIcon } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
@@ -28,6 +30,7 @@ const Login = () => {
     email: '',
     password: '',
   });
+  const [loading, setLoading] = useState(false);
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -78,6 +81,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     // Validate all fields
     const emailError = validateEmail(formData.email);
@@ -90,6 +94,7 @@ const Login = () => {
 
     // If there are any errors, don't submit
     if (emailError || passwordError) {
+      setLoading(false);
       return;
     }
 
@@ -101,24 +106,19 @@ const Login = () => {
         ...prev,
         submit: 'Invalid email or password'
       }));
+      setLoading(false);
     }
   };
 
-  const handleGoogleLogin = async () => {
-    // Implement Google OAuth login
+  const handleSocialLogin = async (provider) => {
     try {
-      window.location.href = 'http://localhost:5000/auth/google';
+      if (provider === 'google') {
+        window.location.href = 'http://localhost:5000/auth/google';
+      } else if (provider === 'linkedin') {
+        window.location.href = 'http://localhost:5000/auth/linkedin';
+      }
     } catch (error) {
-      console.error('Google login failed:', error);
-    }
-  };
-
-  const handleLinkedInLogin = async () => {
-    // Implement LinkedIn OAuth login
-    try {
-      window.location.href = 'http://localhost:5000/auth/linkedin';
-    } catch (error) {
-      console.error('LinkedIn login failed:', error);
+      console.error('Social login failed:', error);
     }
   };
 
@@ -136,7 +136,7 @@ const Login = () => {
       >
         <Box sx={{ mb: 3, textAlign: 'center' }}>
           <img
-            src="/iitm-logo.png"
+            src={process.env.PUBLIC_URL + '/iitm-logo.png'}
             alt="IITM Logo"
             style={{
               width: 80,
@@ -148,30 +148,6 @@ const Login = () => {
             Sign In
           </Typography>
         </Box>
-
-        <Box sx={{ width: '100%', mb: 3 }}>
-          <Button
-            fullWidth
-            variant="outlined"
-            onClick={handleGoogleLogin}
-            startIcon={<GoogleIcon />}
-            sx={{ mb: 2 }}
-          >
-            Continue with Google
-          </Button>
-          <Button
-            fullWidth
-            variant="outlined"
-            onClick={handleLinkedInLogin}
-            startIcon={<LinkedInIcon />}
-          >
-            Continue with LinkedIn
-          </Button>
-        </Box>
-
-        <Divider sx={{ width: '100%', mb: 3 }}>
-          <Typography color="textSecondary">or</Typography>
-        </Divider>
 
         {errors.submit && (
           <Alert severity="error" sx={{ mb: 2 }}>
@@ -233,14 +209,60 @@ const Login = () => {
               ),
             }}
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign In
-          </Button>
+          <Box sx={{ mt: 3, mb: 2 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              size="large"
+              onClick={handleSubmit}
+              disabled={loading}
+            >
+              {loading ? <CircularProgress size={24} /> : 'Sign In'}
+            </Button>
+          </Box>
+
+          <Divider sx={{ my: 2 }}>OR</Divider>
+
+          {/* Social Login Buttons */}
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <Button
+                variant="outlined"
+                fullWidth
+                startIcon={<GoogleIcon />}
+                onClick={() => handleSocialLogin('google')}
+                sx={{
+                  borderColor: '#DB4437',
+                  color: '#DB4437',
+                  '&:hover': {
+                    borderColor: '#DB4437',
+                    backgroundColor: 'rgba(219, 68, 55, 0.04)',
+                  },
+                }}
+              >
+                Sign in with Google
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Button
+                variant="outlined"
+                fullWidth
+                startIcon={<LinkedInIcon />}
+                onClick={() => handleSocialLogin('linkedin')}
+                sx={{
+                  borderColor: '#0077B5',
+                  color: '#0077B5',
+                  '&:hover': {
+                    borderColor: '#0077B5',
+                    backgroundColor: 'rgba(0, 119, 181, 0.04)',
+                  },
+                }}
+              >
+                Sign in with LinkedIn
+              </Button>
+            </Grid>
+          </Grid>
           <Box sx={{ textAlign: 'center' }}>
             <Link to="/signup" style={{ textDecoration: 'none' }}>
               Don't have an account? Sign Up

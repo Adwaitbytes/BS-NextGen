@@ -20,6 +20,7 @@ import AlumniFaculty from './components/AlumniFaculty/AlumniFaculty';
 import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
 import LearningResources from './components/LearningResources/LearningResources';
+import Analytics from './components/Analytics/Analytics';
 
 function App() {
   const { darkMode, isAuthenticated } = useAppContext();
@@ -49,35 +50,14 @@ function App() {
       },
     },
     typography: {
-      fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
-      h1: {
-        fontWeight: 700,
-        fontSize: '2.5rem',
-      },
-      h2: {
-        fontWeight: 600,
-        fontSize: '2rem',
-      },
-      h3: {
-        fontWeight: 600,
-        fontSize: '1.75rem',
-      },
-      h4: {
-        fontWeight: 600,
-        fontSize: '1.5rem',
-      },
-      h5: {
-        fontWeight: 500,
-        fontSize: '1.25rem',
-      },
-      h6: {
-        fontWeight: 500,
-        fontSize: '1rem',
-      },
-      button: {
-        textTransform: 'none',
-        fontWeight: 500,
-      },
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      fontSize: 14,
+      h1: { fontSize: '2.5rem', fontWeight: 500 },
+      h2: { fontSize: '2rem', fontWeight: 500 },
+      h3: { fontSize: '1.75rem', fontWeight: 500 },
+      h4: { fontSize: '1.5rem', fontWeight: 500 },
+      h5: { fontSize: '1.25rem', fontWeight: 500 },
+      h6: { fontSize: '1rem', fontWeight: 500 },
     },
     shape: {
       borderRadius: 12,
@@ -88,19 +68,8 @@ function App() {
           root: {
             borderRadius: 8,
             textTransform: 'none',
-            fontWeight: 500,
+            fontSize: '1rem',
             padding: '8px 16px',
-            transition: 'all 0.2s ease-in-out',
-            '&:hover': {
-              transform: 'translateY(-2px)',
-              boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-            },
-          },
-          contained: {
-            backgroundImage: 'linear-gradient(45deg, #2196f3, #1976d2)',
-            '&:hover': {
-              backgroundImage: 'linear-gradient(45deg, #1976d2, #1565c0)',
-            },
           },
         },
       },
@@ -175,6 +144,11 @@ function App() {
         },
       },
       MuiTextField: {
+        defaultProps: {
+          variant: 'outlined',
+          size: 'medium',
+          fullWidth: true,
+        },
         styleOverrides: {
           root: {
             '& .MuiOutlinedInput-root': {
@@ -197,6 +171,18 @@ function App() {
               transform: 'scale(1.05)',
             },
           },
+        },
+      },
+      MuiTooltip: {
+        defaultProps: {
+          arrow: true,
+          enterTouchDelay: 0,
+          leaveTouchDelay: 1500,
+        },
+      },
+      MuiLink: {
+        defaultProps: {
+          underline: 'hover',
         },
       },
     },
@@ -294,6 +280,31 @@ function App() {
               path="/settings"
               element={
                 isAuthenticated ? <Settings /> : <Navigate to="/login" />
+              }
+            />
+            <Route
+              path="/analytics"
+              element={
+                isAuthenticated ? (
+                  <Box sx={{ display: 'flex' }}>
+                    <Navbar />
+                    <Sidebar />
+                    <Box
+                      component="main"
+                      sx={{
+                        flexGrow: 1,
+                        p: 3,
+                        width: { sm: `calc(100% - 240px)` },
+                        ml: { sm: '240px' },
+                        mt: '64px',
+                      }}
+                    >
+                      <Analytics />
+                    </Box>
+                  </Box>
+                ) : (
+                  <Navigate to="/login" />
+                )
               }
             />
           </Routes>
