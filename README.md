@@ -27,6 +27,13 @@ A modern web application for IITM BS Program students to manage their academic l
 - MongoDB
 - JWT Authentication
 
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+- [Node.js](https://nodejs.org/) (v14 or higher)
+- [MongoDB](https://www.mongodb.com/try/download/community)
+- [Git](https://git-scm.com/downloads)
+
 ## Getting Started
 
 1. Clone the repository:
@@ -42,13 +49,13 @@ npm install
 
 # Install frontend dependencies
 cd client
-npm install
+npm install --legacy-peer-deps
 ```
 
 3. Set up environment variables:
 Create a .env file in the root directory with:
-```
-MONGODB_URI=your_mongodb_uri
+```env
+MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 PORT=5000
 ```
