@@ -18,6 +18,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
 import { Visibility, VisibilityOff, Email as EmailIcon, Lock as LockIcon } from '@mui/icons-material';
 
+// Main Login component for user authentication
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useAppContext();
